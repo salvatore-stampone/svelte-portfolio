@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				freshwost: ['Freshwost']
+				freshwost: ['Freshwost'],
+				hedvig: ['Hedvig Letters Serif']
 			}
 		}
 	},
