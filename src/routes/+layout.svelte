@@ -20,7 +20,10 @@
 			y > 0 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
 		)}
 	>
-		<button>
+		<button
+			on:click={goTop}
+			class="ml-auto grid aspect-square cursor-pointer place-items-center rounded-full bg-slate-900 px-3 text-blue-400 duration-200 hover:bg-slate-800 sm:px-4"
+		>
 			<i class="fa-solid fa-arrow-up"></i>
 		</button>
 	</div>
