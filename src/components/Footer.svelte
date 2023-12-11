@@ -18,7 +18,7 @@
 			</a>
 		</p>
 		<p>
-			<strong class="py-2">Professional GitHub (Brots - Private Repos not showing)</strong>
+			<strong class="py-2">Professional GitHub (Brots)</strong>
 			<a
 				href="https://github.com/S-Memento"
 				target="_blank"
