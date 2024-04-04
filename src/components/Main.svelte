@@ -120,7 +120,7 @@
 								{quality.desc}<a
 									href={quality.href}
 									class="text-lg underline transition-colors hover:text-blue-400 hover:no-underline"
-									>{quality.link}</a
+									target="_blank">{quality.link}</a
 								>{quality.desc_1}
 							</p>
 						{:else}
