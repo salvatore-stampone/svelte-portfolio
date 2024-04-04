@@ -3,22 +3,22 @@
 
 	const steps = [
 		{
+			name: 'Keeo',
+			icon: 'fa-solid fa-music',
+			desc: '<p>Explore Keeo, a website built with <strong class="text-blue-400">Next.js, TypeScript, and TailwindCSS.</strong> Sign up to try our revolutionary mobile app.</p>',
+			href: 'https://www.keeo.io/'
+		},
+		{
+			name: 'Brots',
+			icon: 'fa-solid fa-record-vinyl',
+			desc: 'Dive into the innovation of musical world with Brots. Utilizing <strong class="text-blue-400">NextJS, TypeScript, and TailwindCSS</strong>, this website links together music, Web 3.0, and an amazing UX.',
+			href: 'https://www.brots.cloud/'
+		},
+		{
 			name: 'SpeedService Lucera',
 			icon: 'fa-solid fa-truck-fast',
 			desc: '<p>Experience seamless shipping solutions with SpeedService Lucera. This <strong class="text-blue-400">Next.js and Tailwind CSS</strong> powered website allows you to effortlessly generate shipping quotes and schedule convenient home pickups.</p>',
 			href: 'https://www.speedservicelucera.com/'
-		},
-		{
-			name: 'Life in Dots',
-			icon: 'fa-solid fa-shield-heart',
-			desc: '<p>Explore Life in Dots, a website built with <strong class="text-blue-400">React, Typescript, and Vite.</strong> Visualize the duration of your life through an engaging dot representation.</p>',
-			href: 'https://life-in-dots-jade.vercel.app/'
-		},
-		{
-			name: 'Ready',
-			icon: 'fa-solid fa-book-open',
-			desc: 'Dive into the literary world with Ready. Utilizing <strong class="text-blue-400">JavaScript and Sass</strong>, this website connects to the OpenLibrary API, enabling you to search for literary genres or embark on a serendipitous journey with the \'Feeling Lucky\' button.',
-			href: 'https://salvatore-stampone.github.io/ready/'
 		}
 	];
 
@@ -28,8 +28,15 @@
 			desc: "I have been teaching myself how to code everyday using the internet and my thirst for knowledge. The creative thinking and doing it requires, within the boundaries it sets, is what I love most. From JS, HTML and CSS, my expertise has evolved to include JS frameworks, UI design, the backend, and DB's."
 		},
 		{
-			name: 'a language fanatic',
-			desc: 'I have a degree in Foreign Languages and Literatures and I am fond of the German language, which makes me an unusual programmer. My literary passion vouches for my dedication to coding, seen the radical change it has required.'
+			name: 'a passionate writer',
+			desc: 'Reading fiction and self-improvement books is one of my favorite hobbies. Every week I publish a blog post with interest insights on what I read and learn. Check it out ',
+			href: 'https://buildthestairs.substack.com/',
+			link: 'here',
+			desc_1: '.'
+		},
+		{
+			name: 'a graduate in foreign languages',
+			desc: "I have a degree in Foreign Languages and Literatures and I'm fond of the German language, which makes me an unusual programmer. My literary passion vouches for my dedication to coding, seen the radical change it has required."
 		},
 		{
 			name: 'a self-driven team player',
@@ -108,7 +115,16 @@
 					</p>
 					<div class="flex flex-col gap-6 sm:gap-8">
 						<h3 class="text-2xl sm:text-3xl md:text-5xl">{quality.name}</h3>
-						<p>{quality.desc}</p>
+						{#if quality.href}
+							<p>
+								{quality.desc}<a
+									href={quality.href}
+									class="text-lg underline transition-colors hover:text-blue-400 hover:no-underline"
+									>{quality.link}</a
+								>{quality.desc_1}
+							</p>
+						{:else}
+							<p>{quality.desc}</p>{/if}
 					</div>
 				</div>
 			{/each}
