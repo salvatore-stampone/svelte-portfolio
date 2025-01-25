@@ -3,6 +3,7 @@
 	import '../app.css';
 	import Footer from '../components/Footer.svelte';
 	import Header from '../components/Header.svelte';
+	import { theme } from '$lib/stores/theme';
 
 	let y;
 	let innerHeight = 0;
@@ -13,7 +14,7 @@
 	}
 </script>
 
-<div>
+<div class="min-h-screen text-slate-950 transition-colors dark:text-slate-200">
 	<Header {y} />
 
 	<div
@@ -27,7 +28,7 @@
 		>
 			<button
 				on:click={goTop}
-				class="ml-auto grid aspect-square cursor-pointer place-items-center rounded-full bg-slate-900 px-3 text-blue-400 duration-200 hover:bg-slate-800 sm:px-4"
+				class="ml-auto grid aspect-square cursor-pointer place-items-center rounded-full bg-slate-200 text-blue-400 shadow-lg duration-200 hover:bg-slate-300 dark:bg-slate-900 dark:text-blue-400 dark:shadow-none dark:hover:bg-slate-800 sm:px-4"
 			>
 				<i class="fa-solid fa-arrow-up"></i>
 			</button>

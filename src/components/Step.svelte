@@ -5,9 +5,10 @@
 <a
 	href={step.href}
 	target="_blank"
-	class="group flex cursor-pointer flex-col gap-4 rounded-lg border border-solid border-blue-700 p-4 text-center duration-200 hover:border-blue-400 sm:p-6 md:p-8"
-	><div
-		class="mx-auto -mt-10 grid place-items-center bg-slate-950 px-4 text-5xl duration-200 sm:-mt-12 md:-mt-14 md:text-6xl lg:-mt-16"
+	class="group flex cursor-pointer flex-col gap-4 rounded-lg border border-solid border-blue-700 bg-slate-200 p-4 text-center duration-200 hover:border-blue-400 dark:bg-slate-950 sm:p-6 md:p-8"
+>
+	<div
+		class="mx-auto -mt-10 grid place-items-center bg-slate-950 px-4 text-5xl text-slate-200 duration-200 dark:bg-slate-200 dark:text-slate-950 sm:-mt-12 md:-mt-14 md:text-6xl lg:-mt-16"
 	>
 		<i class={step.icon}></i>
 	</div>
