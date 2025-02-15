@@ -29,11 +29,14 @@
 			desc: `I have been teaching myself how to code <strong class="text-blue-400">everyday</strong> using the internet and my thirst for knowledge. The <strong class="text-blue-400">creative thinking</strong> and doing it requires, within the boundaries it sets, is what I love most. From <strong class="text-blue-400">JS, HTML and CSS</strong>, my expertise has evolved to include <strong class="text-blue-400">JS frameworks, UI design, the backend, and DB's</strong>. I also love using <strong class="text-blue-400">AI</strong> to help me with my work. I find it accelerates my output, learning and creativity.`
 		},
 		{
-			name: 'a passionate writer',
-			desc: `Reading <strong class="text-blue-400">fiction and self-improvement books</strong> is one of my favorite hobbies. <strong class="text-blue-400">Every week</strong> I publish a blog post with interest insights on what I read and learn. Check it out `,
-			href: 'https://buildthestairs.substack.com/',
+			name: 'a passionate YouTuber and writer',
+			desc: `Reading <strong class="text-blue-400">fiction and self-improvement books</strong> is one of my favorite hobbies. <strong class="text-blue-400">Every week</strong> I publish YouTube videos and blog posts with interesting insights on what I read, learn and like. Check out the YouTube channel `,
+			href: 'https://www.youtube.com/@slavarote',
 			link: 'here',
-			desc_1: '.'
+			desc_1: ' and the blog ',
+			href_1: 'https://buildthestairs.substack.com/',
+			link_1: 'here',
+			desc_2: '.'
 		},
 		{
 			name: 'a graduate in foreign languages',
@@ -58,7 +61,7 @@
 			<h2 class="text-4xl sm:text-5xl lg:text-6xl">
 				Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />Full Stack
 				<span class="text-blue-400">Developer</span>,<br />
-				<span class="text-blue-400">Writer</span>
+				<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
 			</h2>
 			<p class="sm:text-lg md:text-xl">
 				The frontend is where my main interests are but I'm versitile: my <span
@@ -151,6 +154,13 @@
 									class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline"
 									target="_blank">{quality.link}</a
 								>{quality.desc_1}
+								{#if quality.href_1}
+									<a
+										href={quality.href_1}
+										class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline"
+										target="_blank">{quality.link_1}</a
+									>{quality.desc_2}
+								{/if}
 							</p>
 						{:else}
 							<p class="sm:text-lg md:text-xl">{@html quality.desc}</p>

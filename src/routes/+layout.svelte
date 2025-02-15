@@ -18,7 +18,7 @@
 	<Header {y} />
 
 	<div
-		class="relative mx-auto flex min-h-screen w-full max-w-[1400px] flex-col text-sm sm:text-base"
+		class="relative mx-auto flex min-h-screen w-full max-w-[1280px] flex-col text-sm sm:text-base"
 	>
 		<div
 			class={classNames(

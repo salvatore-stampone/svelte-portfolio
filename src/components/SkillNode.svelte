@@ -47,7 +47,11 @@
 		<div
 			class="flex h-full w-full items-center justify-center rounded-full bg-slate-900/90 text-2xl text-slate-200 transition-colors group-hover:bg-slate-900/70 dark:bg-slate-200/5"
 		>
-			<i class={skill.icon} />
+			{#if skill.icon.startsWith('<svg')}
+				{@html skill.icon}
+			{:else}
+				<i class={skill.icon} />
+			{/if}
 		</div>
 
 		<!-- Indicatore di figli -->

@@ -33,6 +33,23 @@
 			<i class="fa-brands fa-youtube" />
 		</a>
 		<a
+			href="https://buildthestairs.substack.com/"
+			target="_blank"
+			class="text-2xl text-slate-950 transition-colors hover:text-blue-400 dark:text-white hover:dark:text-blue-400"
+			aria-label="Substack"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				fill="currentColor"
+				class="bi bi-substack"
+				viewBox="0 0 16 16"
+			>
+				<path d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z" />
+			</svg>
+		</a>
+		<a
 			href="mailto:salvatorestampone@icloud.com"
 			target="_blank"
 			class="text-2xl text-slate-950 transition-colors hover:text-blue-400 dark:text-white hover:dark:text-blue-400"

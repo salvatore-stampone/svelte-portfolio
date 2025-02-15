@@ -19,7 +19,12 @@
 				{ name: 'Ruby', icon: 'fa-solid fa-gem' },
 				{ name: 'Ruby on Rails', icon: 'fa-solid fa-train' },
 				{ name: 'Python', icon: 'fa-brands fa-python' },
-				{ name: 'TailwindCSS', icon: 'fa-solid fa-wind' }
+				{
+					name: 'TailwindCSS',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
+					</svg>`
+				}
 			],
 			description:
 				'Otello is a software platform that unifies all hotel messaging channels and features an AI assistant designed to enhance the guest experience.<br><br>By automating routine tasks and handling inquiries, the AI frees up staff from repetitive, low-value work. It also helps increase customer conversions with faster response times while ensuring consistent and high-quality communication.',
@@ -36,7 +41,12 @@
 				{ name: 'PostgreSQL', icon: 'fa-solid fa-database' },
 				{ name: 'GCP', icon: 'fa-brands fa-google' },
 				{ name: 'React', icon: 'fa-brands fa-react' },
-				{ name: 'TailwindCSS', icon: 'fa-solid fa-wind' }
+				{
+					name: 'TailwindCSS',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
+					</svg>`
+				}
 			],
 			description:
 				'Brots develops innovative software for the music industry, focusing on practical solutions that enhance <span class="text-blue-400">creativity</span> and streamline industry processes.<br><br>Explore the future of music tech with us.',
@@ -53,7 +63,12 @@
 				{ name: 'Redux', icon: 'fa-solid fa-layer-group' },
 				{ name: 'Axios', icon: 'fa-solid fa-a' },
 				{ name: 'Shadcn', icon: 'fa-solid fa-palette' },
-				{ name: 'TailwindCSS', icon: 'fa-solid fa-wind' }
+				{
+					name: 'TailwindCSS',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
+					</svg>`
+				}
 			],
 			description:
 				'The project involved the application of Lega Calcio, which includes <span class="text-blue-400">Lega Serie A</span>, <span class="text-blue-400">Lega Serie B</span> and <span class="text-blue-400">AIA</span> (refereeing).<br><br>Among other things, I was mainly responsible for:<br>✅ managing and implementing the creation of the <span class="text-blue-400">front-end</span> based on the UI developed in Figma, bringing freshness, modernity and useful features to the application thanks to <span class="text-blue-400">Next.js</span>, <span class="text-blue-400">Shadcn</span> and <span class="text-blue-400">TailwindCSS</span>;<br>✅ managing and implementing the <span class="text-blue-400">back-end</span> in <span class="text-blue-400">Express.js</span>;<br>✅ connecting the back-end to the front-end through <span class="text-blue-400">Redux</span> and <span class="text-blue-400">Axios</span>.',
@@ -64,14 +79,29 @@
 			company: 'Keeo',
 			logo: '/images/logos/keeo.webp',
 			technologies: [
-				{ name: 'Dart', icon: 'fa-solid fa-d' },
-				{ name: 'Flutter', icon: 'fa-solid fa-f' },
+				{
+					name: 'Dart',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+						<path fill="none" stroke="currentColor" d="M 25.697266 0.99414062 C 25.465673 0.99505538 25.23335 1.0081379 25.001953 1.0351562 C 24.384896 1.1072053 23.771818 1.2719448 23.185547 1.5351562 L 8.6464844 8.0625 A 1.0001 1.0001 0 0 0 8.0878906 8.5898438 A 1.0001 1.0001 0 0 0 8.0644531 8.6445312 L 1.5351562 23.185547 C 0.48255086 25.531285 0.99014837 28.292121 2.8085938 30.109375 L 9.7480469 37.046875 C 9.7500028 37.048838 9.7519474 37.050773 9.7539062 37.052734 L 20.390625 47.707031 A 1.0001 1.0001 0 0 0 21.097656 48 L 38 48 A 1.0001 1.0001 0 0 0 39 47 L 39 39 L 47 39 A 1.0001 1.0001 0 0 0 48 38 L 48 21.097656 A 1.0001 1.0001 0 0 0 47.707031 20.390625 L 37.052734 9.7539062 C 37.050773 9.7519474 37.048838 9.7500028 37.046875 9.7480469 L 30.109375 2.8085938 C 28.9167 1.6151376 27.318411 0.98773734 25.697266 0.99414062 z M 25.863281 2.9921875 C 26.90675 3.026668 27.923693 3.4505312 28.695312 4.2226562 L 32.470703 8 L 13.667969 8 L 24.003906 3.359375 C 24.60125 3.0911923 25.2372 2.9714992 25.863281 2.9921875 z M 11.412109 10 L 32.8125 10 C 33.872846 10 34.889035 10.421085 35.638672 11.169922 L 36.296875 11.828125 L 44.666016 20.199219 L 44.673828 20.191406 L 46 21.513672 L 46 37 L 38.275391 37 L 11.412109 10 z M 10 11.417969 L 35.455078 37 L 12.53125 37 L 11.464844 35.933594 L 11.169922 35.638672 C 10.421085 34.889035 10 33.872846 10 32.8125 L 10 11.417969 z M 8 13.667969 L 8 32.470703 L 4.2226562 28.695312 C 2.9871016 27.460567 2.6459336 25.598168 3.3613281 24.003906 L 3.359375 24.003906 L 8 13.667969 z M 14.533203 39 L 37 39 L 37 46 L 21.513672 46 L 20.189453 44.673828 L 20.199219 44.664062 L 14.533203 39 z"/>
+					</svg>`
+				},
+				{
+					name: 'Flutter',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+						<path fill="none" stroke="currentColor" d="M27,3c-0.2652,0.00005 -0.51952,0.10543 -0.70703,0.29297l-21,21c-0.39037,0.39053 -0.39037,1.02353 0,1.41406l6,6c0.39053,0.39037 1.02353,0.39037 1.41406,0l27,-27c0.28583,-0.28603 0.37129,-0.71604 0.21656,-1.08963c-0.15474,-0.37359 -0.51922,-0.61724 -0.92359,-0.6174zM27.41406,5h9.17188l-24.58594,24.58594l-4.58594,-4.58594zM28,22c-0.2652,0.00005 -0.51952,0.10543 -0.70703,0.29297l-12,12c-0.39037,0.39053 -0.39037,1.02353 0,1.41406l6,6l6,6c0.18751,0.18754 0.44183,0.29292 0.70703,0.29297h12c0.40437,-0.00016 0.76885,-0.24381 0.92359,-0.6174c0.15474,-0.37359 0.06927,-0.8036 -0.21656,-1.08963l-11.29297,-11.29297l11.29297,-11.29297c0.28583,-0.28603 0.37129,-0.71604 0.21656,-1.08963c-0.15474,-0.37359 -0.51922,-0.61724 -0.92359,-0.6174zM28.41406,24h9.17188l-15.58594,15.58594l-4.58594,-4.58594zM28,36.41406l9.58594,9.58594h-9.17188l-5,-5z"/>
+					</svg>`
+				},
 				{ name: 'Node.js', icon: 'fa-brands fa-node-js' },
 				{ name: 'Express.js', icon: 'fa-solid fa-server' },
 				{ name: 'PostgreSQL', icon: 'fa-solid fa-database' },
 				{ name: 'GCP', icon: 'fa-brands fa-google' },
 				{ name: 'React', icon: 'fa-brands fa-react' },
-				{ name: 'TailwindCSS', icon: 'fa-solid fa-wind' }
+				{
+					name: 'TailwindCSS',
+					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
+					</svg>`
+				}
 			],
 			description:
 				'Keeo is a new streaming platform that adopts a <span class="text-blue-400">pay-per-stream</span> model for users to listen to music.<br><br>Unlike traditional subscription models that require monthly fees, Keeo allows users to add funds to their accounts and charges them a fixed price for each stream that lasts over 30 seconds, offering a premium experience.',
@@ -360,7 +390,11 @@
 										<div
 											class="flex items-center gap-1.5 rounded-md bg-blue-400/10 px-2 py-1 text-sm text-blue-400"
 										>
-											<i class={tech.icon} />
+											{#if tech.icon.startsWith('<svg')}
+												{@html tech.icon}
+											{:else}
+												<i class={tech.icon} />
+											{/if}
 											<span>{tech.name}</span>
 										</div>
 									{/each}

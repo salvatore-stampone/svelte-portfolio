@@ -13,19 +13,24 @@
 			isExternal: false
 		},
 		{
+			name: 'About.',
+			link: $page.url.pathname === '/' ? '#about' : '/#about',
+			isExternal: false
+		},
+		{
 			name: 'CV.',
 			link: '/cv',
 			isExternal: false
 		},
 		{
-			name: 'Blog.',
-			link: 'https://buildthestairs.substack.com/',
+			name: 'YouTube.',
+			link: 'https://www.youtube.com/@slavarote',
 			isExternal: true
 		},
 		{
-			name: 'About.',
-			link: $page.url.pathname === '/' ? '#about' : '/#about',
-			isExternal: false
+			name: 'Blog.',
+			link: 'https://buildthestairs.substack.com/',
+			isExternal: true
 		}
 	];
 
@@ -49,7 +54,13 @@
 				element.scrollIntoView({ behavior: 'smooth' });
 				closeMenu();
 			} else {
-				window.location.href = '/' + link.link;
+				window.location.href = '/';
+				setTimeout(() => {
+					const targetElement = document.querySelector(link.link);
+					if (targetElement) {
+						targetElement.scrollIntoView({ behavior: 'smooth' });
+					}
+				}, 100);
 			}
 		}
 	}
@@ -57,13 +68,13 @@
 
 <header
 	class={classNames(
-		'sticky top-0 z-[100] grid place-items-center duration-200',
+		'sticky top-0 z-[100] grid place-items-center px-4 duration-200',
 		y > 0
 			? 'bg-slate-200/90 py-4 supports-[backdrop-filter]:bg-slate-200/80 supports-[backdrop-filter]:saturate-[180%] supports-[backdrop-filter]:backdrop-blur-md dark:bg-slate-950/90 supports-[backdrop-filter]:dark:bg-slate-950/80'
 			: 'bg-transparent py-6'
 	)}
 >
-	<div class="flex w-full max-w-7xl items-center justify-between px-6">
+	<div class="flex w-full max-w-7xl items-center justify-between">
 		<a
 			href="/"
 			class="text-xl text-slate-950 transition-colors hover:text-blue-400 dark:text-slate-200 hover:dark:text-blue-400"
