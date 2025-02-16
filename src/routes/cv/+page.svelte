@@ -331,6 +331,45 @@
 			}
 		}
 	};
+
+	const levelColors = {
+		master: 'from-purple-500 to-purple-700 dark:from-purple-600 dark:to-purple-800',
+		expert: 'from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800',
+		intermediate: 'from-green-500 to-green-700 dark:from-green-600 dark:to-green-800'
+	};
+
+	const languages = [
+		{
+			name: 'Italian',
+			level: 'Native',
+			icon: '🇮🇹',
+			proficiency: 100
+		},
+		{
+			name: 'English',
+			level: 'Extremely Fluent',
+			icon: '🇬🇧',
+			proficiency: 95
+		},
+		{
+			name: 'German',
+			level: 'Fluent',
+			icon: '🇩🇪',
+			proficiency: 80
+		},
+		{
+			name: 'French',
+			level: 'Fluent',
+			icon: '🇫🇷',
+			proficiency: 75
+		},
+		{
+			name: 'Russian',
+			level: 'Advanced Beginner',
+			icon: '🇷🇺',
+			proficiency: 35
+		}
+	];
 </script>
 
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
@@ -354,7 +393,7 @@
 	</section>
 
 	<!-- Work Experience -->
-	<section class="flex flex-col gap-16">
+	<section class="flex flex-col gap-8">
 		<div class="flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">Professional Journey</h6>
 			<h3 class="text-3xl sm:text-4xl md:text-5xl">
@@ -413,6 +452,36 @@
 		</div>
 	</section>
 
+	<!-- Languages -->
+	<section class="flex flex-col gap-8">
+		<div class="flex flex-col gap-2 text-center">
+			<h6 class="text-lg sm:text-xl md:text-2xl">Language Proficiency</h6>
+			<h3 class="text-3xl sm:text-4xl md:text-5xl">
+				My <span class="text-blue-400">linguistic</span> skills
+			</h3>
+		</div>
+
+		<div class="mx-auto grid w-full max-w-3xl gap-6">
+			{#each languages as language}
+				<div class="flex flex-col gap-2">
+					<div class="flex items-center justify-between">
+						<div class="flex items-center gap-2">
+							<span class="text-2xl">{language.icon}</span>
+							<h4 class="text-lg font-medium sm:text-xl">{language.name}</h4>
+						</div>
+						<span class="text-sm text-slate-600 dark:text-slate-400">{language.level}</span>
+					</div>
+					<div class="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+						<div
+							class="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600"
+							style="width: {language.proficiency}%"
+						/>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</section>
+
 	<!-- Skills -->
 	<!-- <section class="flex flex-col gap-2">
 		<div class="flex flex-col gap-2 text-center">
@@ -423,7 +492,7 @@
 		</div>
 
 		<div class="mx-auto w-full max-w-[1200px] overflow-x-auto p-20">
-			<div class="flex min-w-max justify-center gap-16">
+			<div class="flex min-w-max justify-center gap-8">
 				{#each Object.entries(skillTree) as [key, skill]}
 					<SkillNode
 						{skill}

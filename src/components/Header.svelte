@@ -2,9 +2,12 @@
 	import classNames from 'classnames';
 	import { theme, toggleTheme } from '$lib/stores/theme';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	export let y;
 
 	let isMenuOpen = false;
+	let pendingScroll = null;
 
 	let tabs = [
 		{
@@ -34,6 +37,16 @@
 		}
 	];
 
+	onMount(() => {
+		if (pendingScroll) {
+			const element = document.querySelector(pendingScroll);
+			if (element) {
+				element.scrollIntoView({ behavior: 'smooth' });
+				pendingScroll = null;
+			}
+		}
+	});
+
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
 	}
@@ -46,7 +59,7 @@
 		toggleTheme();
 	}
 
-	function handleNavigation(e, link) {
+	async function handleNavigation(e, link) {
 		if (!link.isExternal && link.link.startsWith('#')) {
 			e.preventDefault();
 			const element = document.querySelector(link.link);
@@ -54,11 +67,13 @@
 				element.scrollIntoView({ behavior: 'smooth' });
 				closeMenu();
 			} else {
-				window.location.href = '/';
+				pendingScroll = link.link;
+				await goto('/');
 				setTimeout(() => {
-					const targetElement = document.querySelector(link.link);
+					const targetElement = document.querySelector(pendingScroll);
 					if (targetElement) {
 						targetElement.scrollIntoView({ behavior: 'smooth' });
+						pendingScroll = null;
 					}
 				}, 100);
 			}

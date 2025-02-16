@@ -10,10 +10,10 @@
 			href: 'https://www.keeo.io/'
 		},
 		{
-			name: 'Brots',
-			icon: 'fa-solid fa-record-vinyl',
-			desc: 'Dive into the innovation of musical world with Brots. Utilizing <strong class="text-blue-400">NextJS, TypeScript, and TailwindCSS</strong>, this website links together music, Web 3.0, and an amazing UX.',
-			href: 'https://www.brots.cloud/'
+			name: 'Otello',
+			icon: 'fa-solid fa-hotel',
+			desc: 'Otello is a software platform that unifies all hotel messaging channels with an AI assistant to enhance guest experience. Built with <strong class="text-blue-400">Vue.js, TailwindCSS, Ruby on Rails and Python</strong>, it automates routine tasks and increases conversions through faster response times.',
+			href: 'https://www.otello.ai/'
 		},
 		{
 			name: 'SpeedService Lucera',
@@ -30,7 +30,7 @@
 		},
 		{
 			name: 'a passionate YouTuber and writer',
-			desc: `Reading <strong class="text-blue-400">fiction and self-improvement books</strong> is one of my favorite hobbies. <strong class="text-blue-400">Every week</strong> I publish YouTube videos and blog posts with interesting insights on what I read, learn and like. Check out the YouTube channel `,
+			desc: `Reading <strong class="text-blue-400">fiction and self-improvement books</strong> is one of my favorite hobbies. <strong class="text-blue-400">Every two weeks</strong> I publish a blog post and every now and then I publish a YouTube video with interesting insights on what I read, learn and like. Check out the YouTube channel `,
 			href: 'https://www.youtube.com/@slavarote',
 			link: 'here',
 			desc_1: ' and the blog ',
@@ -71,11 +71,18 @@
 			</p>
 			<p class="sm:text-lg md:text-xl">
 				I also have a <a
+					href="https://www.youtube.com/@slavarote"
+					target="_blank"
+					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
+					>YouTube channel</a
+				>
+				(in Italian 🇮🇹) and a
+				<a
 					href="https://buildthestairs.substack.com/"
 					target="_blank"
 					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
 					>blog</a
-				> where I share my learnings and interests in a fun and engaging way.
+				> (in English 🇬🇧) where I share my learnings and interests in a fun and engaging way.
 			</p>
 			<a
 				href="mailto:salvatorestampone@icloud.com"
@@ -112,11 +119,14 @@
 			<p>Watch the video</p>
 		</a> -->
 		<div class="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-10">
-			{#each steps as step}
+			{#each steps as step, index}
 				<a
 					href={step.href}
 					target="_blank"
-					class="group flex cursor-pointer flex-col gap-4 rounded-lg border border-solid border-blue-700 bg-slate-200 p-4 text-center duration-200 hover:border-blue-400 hover:shadow-lg dark:bg-slate-950 dark:hover:shadow-none sm:p-6 md:p-8"
+					class="group flex cursor-pointer flex-col gap-4 rounded-lg border border-solid border-blue-700 bg-slate-200 p-4 text-center duration-200 hover:border-blue-400 hover:shadow-lg dark:bg-slate-950 dark:hover:shadow-none sm:p-6 md:p-8 {index ===
+					1
+						? 'lg:-translate-y-6 lg:scale-110 lg:shadow-xl dark:lg:bg-slate-900/80 dark:lg:shadow-none'
+						: ''}"
 				>
 					<i class:text-4xl={true} class:text-blue-400={true} class={step.icon} />
 					<h4 class="text-2xl sm:text-3xl md:text-4xl">{step.name}</h4>
