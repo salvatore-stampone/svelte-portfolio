@@ -1,11 +1,10 @@
 import { Resvg } from '@resvg/resvg-js';
 import type { RequestHandler } from '@sveltejs/kit';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 import satori from 'satori';
 
-// Carica il font Inter come fallback
-const interRegular = readFileSync(join(process.cwd(), 'static', 'fonts', 'Inter-Regular.ttf'));
+const fontRegular = await fetch(
+	'https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=display=swap'
+).then((res) => res.arrayBuffer());
 
 export const GET: RequestHandler = async () => {
 	const svg = await satori(
@@ -13,32 +12,35 @@ export const GET: RequestHandler = async () => {
 			type: 'div',
 			props: {
 				style: {
-					display: 'flex',
 					height: '100%',
 					width: '100%',
-					alignItems: 'center',
-					justifyContent: 'center',
+					display: 'flex',
 					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'flex-start',
+					paddingTop: '80px',
 					backgroundImage: 'linear-gradient(to bottom right, #1e293b, #0f172a)',
-					fontSize: 60,
-					letterSpacing: -2,
-					fontWeight: 700,
-					textAlign: 'center',
 					color: 'white',
-					fontFamily: 'Inter'
+					fontFamily: 'Hedvig Letters Serif'
 				},
 				children: [
 					{
 						type: 'div',
 						props: {
-							style: { fontSize: 100 },
+							style: { fontSize: 100, marginBottom: 20 },
 							children: '👋'
 						}
 					},
 					{
 						type: 'div',
 						props: {
-							style: { marginTop: 20 },
+							style: {
+								fontSize: 60,
+								fontWeight: 700,
+								letterSpacing: '-0.05em',
+								marginBottom: 20,
+								textAlign: 'center'
+							},
 							children: 'Salvatore Stampone'
 						}
 					},
@@ -47,10 +49,10 @@ export const GET: RequestHandler = async () => {
 						props: {
 							style: {
 								fontSize: 30,
-								marginTop: 20,
 								background: 'rgba(255,255,255,0.1)',
 								padding: '10px 20px',
-								borderRadius: 10
+								borderRadius: 10,
+								textAlign: 'center'
 							},
 							children: 'Developer • YouTuber • Writer'
 						}
@@ -63,8 +65,8 @@ export const GET: RequestHandler = async () => {
 			height: 630,
 			fonts: [
 				{
-					name: 'Inter',
-					data: interRegular,
+					name: 'Hedvig Letters Serif',
+					data: fontRegular,
 					weight: 400,
 					style: 'normal'
 				}
