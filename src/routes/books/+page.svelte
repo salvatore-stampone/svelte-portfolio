@@ -1,9 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/stores/theme';
+	import { gsap } from 'gsap';
 
 	// Stato per il numero di colonne nella visualizzazione
 	let gridColumns = 3;
+	let elementsToAnimate = [];
+	let prefersReducedMotion = false;
 
 	// Funzione per cambiare la visualizzazione e salvare nel localStorage
 	function changeGridView(columns) {
@@ -14,8 +17,60 @@
 		}
 	}
 
+	// Funzione per verificare se l'utente preferisce ridurre le animazioni
+	function checkReducedMotion() {
+		if (typeof window !== 'undefined') {
+			return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		}
+		return false;
+	}
+
 	// Carica la preferenza dal localStorage all'avvio
 	onMount(() => {
+		// Verifica preferenze di riduzione animazioni
+		prefersReducedMotion = checkReducedMotion();
+
+		// Importa ScrollTrigger dinamicamente solo nel browser
+		import('gsap/ScrollTrigger').then((module) => {
+			const ScrollTrigger = module.ScrollTrigger;
+			// Registrazione del plugin GSAP
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Raccogliamo tutti gli elementi da animare
+			elementsToAnimate = [...document.querySelectorAll('.animate-on-scroll')];
+
+			// Se l'utente preferisce ridurre le animazioni, mostriamo subito gli elementi
+			if (prefersReducedMotion) {
+				// Mostra subito tutti gli elementi senza animazione
+				elementsToAnimate.forEach((element) => {
+					gsap.set(element, {
+						opacity: 1,
+						y: 0 // Rimuove qualsiasi offset di posizione
+					});
+				});
+			} else {
+				// Configuriamo le animazioni normali
+				elementsToAnimate.forEach((element) => {
+					gsap.fromTo(
+						element,
+						{
+							opacity: 0
+						},
+						{
+							opacity: 1,
+							duration: 0.7,
+							ease: 'none',
+							scrollTrigger: {
+								trigger: element,
+								start: 'top 85%',
+								toggleActions: 'play none none none'
+							}
+						}
+					);
+				});
+			}
+		});
+
 		if (typeof localStorage !== 'undefined') {
 			const savedColumns = localStorage.getItem('bookGridColumns');
 			if (savedColumns) {
@@ -361,14 +416,14 @@
 
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<section class="flex flex-col gap-8">
-		<div class="flex flex-col gap-2 text-center">
+		<div class="animate-on-scroll flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">Libreria Personale</h6>
 			<h3 class="text-3xl sm:text-4xl md:text-5xl">
 				I miei <span class="text-blue-400">migliori libri</span> per anno
 			</h3>
 		</div>
 
-		<div class="mx-auto mb-8 hidden justify-center gap-4 lg:flex">
+		<div class="animate-on-scroll mx-auto mb-8 hidden justify-center gap-4 lg:flex">
 			<button
 				class={`rounded-md px-3 py-1 transition-colors ${
 					gridColumns === 3
@@ -404,7 +459,7 @@
 		<div class="mx-auto w-full max-w-5xl">
 			{#each years as year}
 				{#if booksByYear[year] && booksByYear[year].length > 0}
-					<div class="mb-16">
+					<div class="animate-on-scroll mb-16">
 						<h4 class="mb-6 inline-block border-b-2 border-blue-400 pb-2 text-2xl font-bold">
 							{year}
 						</h4>
@@ -420,7 +475,7 @@
 						>
 							{#each booksByYear[year] as book}
 								<div
-									class="group flex flex-col overflow-hidden rounded-lg bg-slate-200/50 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70"
+									class="animate-on-scroll group flex flex-col overflow-hidden rounded-lg bg-slate-200/50 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70"
 								>
 									<div
 										class="aspect-[2/3] w-full overflow-hidden bg-slate-300/50 dark:bg-slate-800/50"
@@ -467,6 +522,31 @@
 		}
 		100% {
 			opacity: 1;
+		}
+	}
+
+	/* Stile per gli elementi animati */
+	:global(.animate-on-scroll) {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	/* Disattiva transizioni per utenti che preferiscono ridurre le animazioni */
+	@media (prefers-reduced-motion: reduce) {
+		:global(.animate-on-scroll) {
+			opacity: 1;
+			transform: none;
+		}
+
+		img {
+			opacity: 1;
+			animation: none;
+		}
+
+		/* Disattiva tutte le transizioni */
+		* {
+			transition: none !important;
+			animation: none !important;
 		}
 	}
 </style>

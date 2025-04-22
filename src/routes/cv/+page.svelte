@@ -4,6 +4,7 @@
 	import SkillNode from '../../components/SkillNode.svelte';
 	import CompanyLogoPlaceholder from '../../components/CompanyLogoPlaceholder.svelte';
 	import { theme } from '$lib/stores/theme';
+	import { gsap } from 'gsap';
 
 	const experiences = [
 		{
@@ -113,6 +114,9 @@
 	let contributionsCount = 0;
 	let loading = true;
 	let heatmapInstance;
+	let elementsToAnimate = [];
+	let languageCircles = [];
+	let prefersReducedMotion = false;
 
 	// Definiamo i colori per i temi
 	const themeColors = {
@@ -189,7 +193,95 @@
 		}
 	}
 
+	// Funzione per verificare se l'utente preferisce ridurre le animazioni
+	function checkReducedMotion() {
+		if (typeof window !== 'undefined') {
+			return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		}
+		return false;
+	}
+
 	onMount(async () => {
+		// Verifica preferenze di riduzione animazioni
+		prefersReducedMotion = checkReducedMotion();
+
+		// Importa ScrollTrigger dinamicamente solo nel browser
+		import('gsap/ScrollTrigger').then((module) => {
+			const ScrollTrigger = module.ScrollTrigger;
+			// Registrazione del plugin GSAP
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Raccogliamo tutti gli elementi da animare
+			elementsToAnimate = [...document.querySelectorAll('.animate-on-scroll')];
+
+			// Se l'utente preferisce ridurre le animazioni, mostriamo subito gli elementi
+			if (prefersReducedMotion) {
+				// Mostra subito tutti gli elementi senza animazione
+				elementsToAnimate.forEach((element) => {
+					gsap.set(element, { opacity: 1 });
+				});
+
+				// Imposta subito i cerchi delle lingue alla percentuale finale
+				languageCircles = [...document.querySelectorAll('.language-circle')];
+				languageCircles.forEach((circle) => {
+					const percent = parseFloat(circle.getAttribute('data-percent')) || 0;
+					const circumference = 2 * Math.PI * 54;
+					const offset = circumference - (percent / 100) * circumference;
+
+					gsap.set(circle, {
+						strokeDasharray: `${circumference} ${circumference}`,
+						strokeDashoffset: offset
+					});
+				});
+			} else {
+				// Configuriamo le animazioni normali quando le animazioni sono permesse
+				elementsToAnimate.forEach((element) => {
+					gsap.fromTo(
+						element,
+						{
+							opacity: 0
+						},
+						{
+							opacity: 1,
+							duration: 0.7,
+							ease: 'none',
+							scrollTrigger: {
+								trigger: element,
+								start: 'top 85%',
+								toggleActions: 'play none none none'
+							}
+						}
+					);
+				});
+
+				// Configuriamo l'animazione per i cerchi delle lingue
+				languageCircles = [...document.querySelectorAll('.language-circle')];
+				languageCircles.forEach((circle) => {
+					const percent = parseFloat(circle.getAttribute('data-percent')) || 0;
+					const circumference = 2 * Math.PI * 54; // Circonferenza (2πr)
+					const offset = circumference - (percent / 100) * circumference;
+
+					// Impostiamo lo stato iniziale
+					gsap.set(circle, {
+						strokeDasharray: `${circumference} ${circumference}`,
+						strokeDashoffset: circumference
+					});
+
+					// Animiamo la barra circolare dall'inizio fino alla percentuale
+					gsap.to(circle, {
+						strokeDashoffset: offset,
+						duration: 0.5,
+						ease: 'power2.out',
+						scrollTrigger: {
+							trigger: circle,
+							start: 'top 85%',
+							toggleActions: 'play none none none'
+						}
+					});
+				});
+			}
+		});
+
 		const today = new Date();
 		const lastYear = new Date(today);
 		lastYear.setFullYear(lastYear.getFullYear() - 1);
@@ -208,7 +300,8 @@
 				endDate: today,
 				cellSize: 10,
 				cellGap: 2,
-				cellRadius: '20%'
+				cellRadius: '20%',
+				allowOverflow: true
 			}
 		});
 
@@ -343,7 +436,7 @@
 			name: 'Italian',
 			level: 'Native',
 			icon: '🇮🇹',
-			proficiency: 100
+			proficiency: 99.9
 		},
 		{
 			name: 'English',
@@ -375,7 +468,7 @@
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<!-- GitHub Activity -->
 	<section class="flex flex-col gap-8">
-		<div class="flex flex-col gap-2 text-center">
+		<div class="animate-on-scroll flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">My GitHub Activity</h6>
 			{#if loading}
 				<h3 class="text-3xl sm:text-4xl md:text-5xl">Loading...</h3>
@@ -386,7 +479,7 @@
 			{/if}
 		</div>
 		<div
-			class="mx-auto w-full max-w-5xl rounded-xl bg-slate-200/50 p-6 shadow-lg dark:bg-slate-900/50 dark:shadow-none"
+			class="animate-on-scroll mx-auto w-full max-w-5xl rounded-xl bg-slate-200/50 p-6 shadow-lg dark:bg-slate-900/50 dark:shadow-none"
 		>
 			<div bind:this={heatmapContainer} />
 		</div>
@@ -394,7 +487,7 @@
 
 	<!-- Work Experience -->
 	<section class="flex flex-col gap-8">
-		<div class="flex flex-col gap-2 text-center">
+		<div class="animate-on-scroll flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">Professional Journey</h6>
 			<h3 class="text-3xl sm:text-4xl md:text-5xl">
 				Notable <span class="text-blue-400">work</span> experience
@@ -406,7 +499,7 @@
 				<a
 					href={experience.link}
 					target="_blank"
-					class="group relative flex flex-col gap-6 rounded-xl bg-slate-200/50 p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70 sm:flex-row sm:gap-8"
+					class="animate-on-scroll group relative flex flex-col gap-6 rounded-xl bg-slate-200/50 p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70 sm:flex-row sm:gap-8"
 				>
 					<div class="shrink-0">
 						{#if !experience.logo}
@@ -454,28 +547,73 @@
 
 	<!-- Languages -->
 	<section class="flex flex-col gap-8">
-		<div class="flex flex-col gap-2 text-center">
+		<div class="animate-on-scroll flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">Language Proficiency</h6>
 			<h3 class="text-3xl sm:text-4xl md:text-5xl">
 				My <span class="text-blue-400">linguistic</span> skills
 			</h3>
 		</div>
 
-		<div class="mx-auto grid w-full max-w-3xl gap-6">
+		<div class="mx-auto grid w-full max-w-5xl gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 			{#each languages as language}
-				<div class="flex flex-col gap-2">
-					<div class="flex items-center justify-between">
-						<div class="flex items-center gap-2">
-							<span class="text-2xl">{language.icon}</span>
-							<h4 class="text-lg font-medium sm:text-xl">{language.name}</h4>
+				<div class="animate-on-scroll flex flex-col items-center gap-4">
+					<div class="relative h-[120px] w-[120px]">
+						<!-- SVG per il cerchio di progresso -->
+						<svg width="120" height="120" viewBox="0 0 120 120">
+							<!-- Cerchio di sfondo -->
+							<circle
+								cx="60"
+								cy="60"
+								r="54"
+								stroke={$theme === 'dark' ? '#1e293b' : '#e2e8f0'}
+								stroke-width="10"
+								fill="none"
+							/>
+
+							<!-- Cerchio di progresso con gradiente dinamico -->
+							<defs>
+								<linearGradient id="gradient-{language.name}" x1="0%" y1="0%" x2="100%" y2="0%">
+									<stop
+										offset="0%"
+										stop-color={language.proficiency > 80 ? '#3b82f6' : '#60a5fa'}
+									/>
+									<stop
+										offset="100%"
+										stop-color={language.proficiency > 80 ? '#2563eb' : '#3b82f6'}
+									/>
+								</linearGradient>
+							</defs>
+
+							<circle
+								class="language-circle"
+								data-percent={language.proficiency}
+								cx="60"
+								cy="60"
+								r="54"
+								stroke={`url(#gradient-${language.name})`}
+								stroke-width="10"
+								fill="none"
+								transform="rotate(-90 60 60)"
+								stroke-linecap="round"
+							/>
+						</svg>
+
+						<!-- Icona della lingua al centro -->
+						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl">
+							{language.icon}
 						</div>
-						<span class="text-sm text-slate-600 dark:text-slate-400">{language.level}</span>
-					</div>
-					<div class="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+
+						<!-- Percentuale -->
 						<div
-							class="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-600"
-							style="width: {language.proficiency}%"
-						/>
+							class="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white"
+						>
+							{language.proficiency}%
+						</div>
+					</div>
+
+					<div class="flex flex-col items-center text-center">
+						<h4 class="text-lg font-medium">{language.name}</h4>
+						<span class="text-sm text-slate-600 dark:text-slate-400">{language.level}</span>
 					</div>
 				</div>
 			{/each}
@@ -539,5 +677,35 @@
 		transition:
 			opacity 300ms,
 			transform 300ms;
+	}
+
+	/* Stile per gli elementi animati */
+	:global(.animate-on-scroll) {
+		opacity: 0;
+	}
+
+	/* Stile per il cerchio di progresso */
+	.language-circle {
+		transition: stroke-dashoffset 1.5s ease-out;
+	}
+
+	/* Disattiva transizioni per utenti che preferiscono ridurre le animazioni */
+	@media (prefers-reduced-motion: reduce) {
+		:global(.animate-on-scroll) {
+			opacity: 1;
+		}
+
+		.language-circle {
+			transition: none;
+		}
+
+		:global(.skill-node-enter),
+		:global(.skill-node-enter-active),
+		:global(.skill-node-exit),
+		:global(.skill-node-exit-active) {
+			transition: none;
+			opacity: 1;
+			transform: none;
+		}
 	}
 </style>
