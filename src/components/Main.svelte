@@ -2,6 +2,9 @@
 	import Step from './Step.svelte';
 	import { theme } from '$lib/stores/theme';
 
+	// Stato per indicare se disponibile o meno per lavoro
+	let isAvailable = false;
+
 	const steps = [
 		{
 			name: 'Keeo',
@@ -57,12 +60,34 @@
 
 <main class="flex flex-1 flex-col p-4">
 	<section id="intro" class="grid grid-cols-1 gap-10 py-8 sm:py-14 lg:grid-cols-2">
-		<div class="flex flex-col gap-6 text-center md:gap-8 lg:justify-center lg:gap-10 lg:text-start">
-			<h2 class="text-4xl sm:text-5xl lg:text-6xl">
-				Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />Full Stack
-				<span class="text-blue-400">Developer</span>,<br />
-				<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
-			</h2>
+		<div class="flex flex-col gap-6 text-center md:gap-8 lg:justify-center lg:text-start">
+			<div class="flex flex-col items-center lg:items-start">
+				<div class="mx-auto flex items-center gap-2 lg:mx-0">
+					{#if isAvailable}
+						<!-- Stato "Available" -->
+						<span class="relative flex h-3 w-3">
+							<span
+								class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"
+							></span>
+							<span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
+						</span>
+						<span class="text-sm font-medium text-green-500 sm:text-base">Available for hire</span>
+					{:else}
+						<!-- Stato "Not Available" -->
+						<span class="relative flex h-3 w-3">
+							<span class="relative inline-flex h-3 w-3 rounded-full bg-gray-400"></span>
+						</span>
+						<span class="text-sm font-medium text-gray-400 sm:text-base"
+							>Not available for hire</span
+						>
+					{/if}
+				</div>
+				<h2 class="text-4xl sm:text-5xl lg:min-w-[700px] lg:text-6xl">
+					Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />Full Stack
+					<span class="text-blue-400">Developer</span>,<br />
+					<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
+				</h2>
+			</div>
 			<p class="sm:text-lg md:text-xl">
 				The frontend is where my main interests are but I'm versitile: my <span
 					class="text-blue-400">most proficient tech</span
@@ -86,7 +111,7 @@
 			</p>
 			<a
 				href="mailto:salvatorestampone@icloud.com"
-				class="group relative mx-auto cursor-pointer overflow-hidden rounded-full bg-slate-950 px-6 py-3 text-slate-200 dark:bg-slate-200 dark:text-slate-950 sm:text-lg md:text-xl lg:mr-auto"
+				class="group relative cursor-pointer self-center overflow-hidden rounded-full bg-slate-950 px-6 py-3 text-slate-200 dark:bg-slate-200 dark:text-slate-950 sm:text-lg md:text-xl lg:self-start"
 			>
 				<div
 					class="absolute right-full top-0 z-0 h-full w-full bg-blue-400 opacity-20 duration-200 group-hover:translate-x-full"
