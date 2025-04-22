@@ -26,6 +26,11 @@
 			isExternal: false
 		},
 		{
+			name: 'Books.',
+			link: '/books',
+			isExternal: false
+		},
+		{
 			name: 'YouTube.',
 			link: 'https://www.youtube.com/@slavarote',
 			isExternal: true
