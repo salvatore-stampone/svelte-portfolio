@@ -2,7 +2,6 @@
 	import { onMount, createEventDispatcher } from 'svelte';
 
 	export let skill;
-	export let isRoot = false;
 	export let parentId = null;
 	export let siblingIds = [];
 
