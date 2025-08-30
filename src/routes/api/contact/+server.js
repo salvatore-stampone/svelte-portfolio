@@ -1,4 +1,7 @@
-import { CONTACT_EMAIL, RESEND_API_KEY } from '$env/static/private';
+import {
+	VITE_CONTACT_EMAIL as CONTACT_EMAIL,
+	VITE_RESEND_API_KEY as RESEND_API_KEY
+} from '$env/static/private';
 import { json } from '@sveltejs/kit';
 import { Resend } from 'resend';
 
