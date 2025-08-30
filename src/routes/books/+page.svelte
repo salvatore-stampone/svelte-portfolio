@@ -3,21 +3,28 @@
 	import { theme } from '$lib/stores/theme';
 	import { gsap } from 'gsap';
 
-	// Stato per il numero di colonne nella visualizzazione
+	// State for the number of columns in the grid view
 	let gridColumns = 3;
 	let elementsToAnimate = [];
 	let prefersReducedMotion = false;
 
-	// Funzione per cambiare la visualizzazione e salvare nel localStorage
+	// Tooltip state
+	let tooltipVisible = false;
+	let tooltipContent = '';
+	let tooltipX = 0;
+	let tooltipY = 0;
+	let isMobile = false;
+
+	// Function to change the grid view and save to localStorage
 	function changeGridView(columns) {
 		gridColumns = columns;
-		// Salva la preferenza nel localStorage
+		// Save preference to localStorage
 		if (typeof localStorage !== 'undefined') {
 			localStorage.setItem('bookGridColumns', columns.toString());
 		}
 	}
 
-	// Funzione per verificare se l'utente preferisce ridurre le animazioni
+	// Function to check if the user prefers reduced motion
 	function checkReducedMotion() {
 		if (typeof window !== 'undefined') {
 			return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -25,31 +32,72 @@
 		return false;
 	}
 
-	// Carica la preferenza dal localStorage all'avvio
+	// Function to check if device is mobile
+	function checkIsMobile() {
+		if (typeof window !== 'undefined') {
+			return window.innerWidth < 768; // md breakpoint in Tailwind
+		}
+		return false;
+	}
+
+	// Tooltip functions
+	function showTooltip(event, description) {
+		if (isMobile) return; // Don't show tooltip on mobile
+
+		tooltipContent = description;
+		tooltipX = event.clientX + 10;
+		tooltipY = event.clientY + 10;
+		tooltipVisible = true;
+	}
+
+	function hideTooltip() {
+		tooltipVisible = false;
+	}
+
+	function updateTooltipPosition(event) {
+		if (!tooltipVisible || isMobile) return;
+
+		tooltipX = event.clientX + 10;
+		tooltipY = event.clientY + 10;
+	}
+
+	// Load preference from localStorage on mount
 	onMount(() => {
-		// Verifica preferenze di riduzione animazioni
+		// Check reduced motion preference
 		prefersReducedMotion = checkReducedMotion();
 
-		// Importa ScrollTrigger dinamicamente solo nel browser
+		// Check if device is mobile
+		isMobile = checkIsMobile();
+
+		// Add resize listener to update mobile state
+		const handleResize = () => {
+			isMobile = checkIsMobile();
+			if (isMobile && tooltipVisible) {
+				hideTooltip(); // Hide tooltip if switching to mobile
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		// Dynamically import ScrollTrigger only in the browser
 		import('gsap/ScrollTrigger').then((module) => {
 			const ScrollTrigger = module.ScrollTrigger;
-			// Registrazione del plugin GSAP
+			// Register GSAP plugin
 			gsap.registerPlugin(ScrollTrigger);
 
-			// Raccogliamo tutti gli elementi da animare
+			// Collect all elements to animate
 			elementsToAnimate = [...document.querySelectorAll('.animate-on-scroll')];
 
-			// Se l'utente preferisce ridurre le animazioni, mostriamo subito gli elementi
+			// If user prefers reduced motion, show all elements immediately
 			if (prefersReducedMotion) {
-				// Mostra subito tutti gli elementi senza animazione
 				elementsToAnimate.forEach((element) => {
 					gsap.set(element, {
 						opacity: 1,
-						y: 0 // Rimuove qualsiasi offset di posizione
+						y: 0 // Remove any position offset
 					});
 				});
 			} else {
-				// Configuriamo le animazioni normali
+				// Set up normal animations
 				elementsToAnimate.forEach((element) => {
 					gsap.fromTo(
 						element,
@@ -77,12 +125,17 @@
 				gridColumns = parseInt(savedColumns, 10);
 			}
 		}
+
+		// Cleanup function
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
 	});
 
-	// Array di anni dal più recente (2025) al più vecchio (2016)
+	// Array of years from most recent (2025) to oldest (2016)
 	const years = Array.from({ length: 10 }, (_, i) => 2025 - i);
 
-	// Libri preferiti per ogni anno
+	// Favorite books by year
 	const booksByYear = {
 		'2016': [
 			{
@@ -91,7 +144,7 @@
 				author: 'Yevgeny Zamyatin',
 				coverUrl: 'https://m.media-amazon.com/images/I/81VK0rQFUTL.jpg',
 				description:
-					"Un romanzo distopico considerato precursore di '1984' e 'Brave New World', che descrive una società totalitaria dove l'individualità è soppressa a favore della collettività."
+					"A dystopian novel considered a precursor to '1984' and 'Brave New World', depicting a totalitarian society where individuality is suppressed in favor of the collective."
 			}
 		],
 		'2017': [],
@@ -102,7 +155,7 @@
 				author: 'Primo Levi',
 				coverUrl: 'https://www.ibs.it/images/9788806219352_804501618_0_0_0_75.jpg',
 				description:
-					"Una potente testimonianza autobiografica dell'esperienza dell'autore nel campo di concentramento di Auschwitz, che esplora la condizione umana di fronte all'orrore."
+					"A powerful autobiographical testimony of the author's experience in the Auschwitz concentration camp, exploring the human condition in the face of horror."
 			},
 			{
 				id: '2018-2',
@@ -111,7 +164,7 @@
 				coverUrl:
 					'https://images-eu.ssl-images-amazon.com/images/I/81RWHoypVZL._AC_UL600_SR600,600_.jpg',
 				description:
-					"Un classico della letteratura antimilitarista che racconta l'esperienza dei soldati tedeschi durante la Prima Guerra Mondiale, evidenziando la brutalità e l'insensatezza della guerra."
+					'A classic of anti-war literature recounting the experience of German soldiers during World War I, highlighting the brutality and senselessness of war.'
 			},
 			{
 				id: '2018-3',
@@ -119,7 +172,7 @@
 				author: 'Viktor E. Frankl',
 				coverUrl: 'https://static.francoangeli.it/fa-libri-copertine/1000/1400_1_1.jpg',
 				description:
-					"Un'opera che combina memoria personale e psicologia, in cui l'autore elabora la sua teoria della logoterapia basata sulle esperienze vissute nei campi di concentramento nazisti."
+					'A work that combines personal memoir and psychology, in which the author develops his theory of logotherapy based on his experiences in Nazi concentration camps.'
 			}
 		],
 		'2019': [
@@ -129,7 +182,7 @@
 				author: 'Emilio Lussu',
 				coverUrl: 'https://www.ibs.it/images/9788806219178_823630329_0_0_0_75.jpg',
 				description:
-					"Memoir sulla Prima Guerra Mondiale che racconta l'esperienza dell'autore sul fronte dell'Altipiano di Asiago, offrendo una testimonianza cruda e realistica sulla vita in trincea."
+					"A World War I memoir recounting the author's experience on the Asiago Plateau front, offering a raw and realistic testimony of life in the trenches."
 			},
 			{
 				id: '2019-2',
@@ -138,7 +191,7 @@
 				coverUrl:
 					'https://www.feltrinellieditore.it/media/copertina/quarta/74/9788807892974_quarta.jpg.800x800_q75.jpg',
 				description:
-					"Un'analisi filosofica del processo a Adolf Eichmann a Gerusalemme, che introduce il concetto di 'banalità del male' per spiegare come persone ordinarie possano compiere atrocità in sistemi totalitari."
+					"A philosophical analysis of the trial of Adolf Eichmann in Jerusalem, introducing the concept of the 'banality of evil' to explain how ordinary people can commit atrocities in totalitarian systems."
 			},
 			{
 				id: '2019-3',
@@ -146,7 +199,7 @@
 				author: 'Oscar Wilde',
 				coverUrl: 'https://images.penguinrandomhouse.com/cover/9780141442464',
 				description:
-					"Un romanzo che esplora i temi dell'estetica, della moralità e della corruzione attraverso la storia di un giovane la cui immagine in un ritratto invecchia mentre lui mantiene un aspetto giovane."
+					'A novel exploring themes of aesthetics, morality, and corruption through the story of a young man whose portrait ages while he remains young.'
 			}
 		],
 		'2020': [
@@ -156,7 +209,7 @@
 				author: 'Johann Wolfgang von Goethe',
 				coverUrl: 'https://www.lafeltrinelli.it/images/9788858415467_0_0_536_0_75.jpg',
 				description:
-					"Un romanzo epistolare che racconta la storia di un giovane artista sensibile che si innamora di una donna già promessa, esplorando temi romantici come l'amore non corrisposto e il tormento emotivo."
+					'An epistolary novel telling the story of a sensitive young artist who falls in love with a woman already promised, exploring romantic themes such as unrequited love and emotional torment.'
 			}
 		],
 		'2021': [
@@ -166,7 +219,7 @@
 				author: 'George Orwell',
 				coverUrl: 'https://m.media-amazon.com/images/I/71kxa1-0mfL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					"Un romanzo distopico che descrive un regime totalitario dove la sorveglianza è onnipresente e il pensiero individuale è controllato, introducendo concetti come il 'Grande Fratello' e la 'neolingua'."
+					"A dystopian novel describing a totalitarian regime where surveillance is omnipresent and individual thought is controlled, introducing concepts like 'Big Brother' and 'Newspeak'."
 			}
 		],
 		'2022': [
@@ -176,7 +229,7 @@
 				author: 'Thomas Mann',
 				coverUrl: 'https://m.media-amazon.com/images/I/71OyUmYeWpL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					"Una novella semi-autobiografica che esplora il conflitto tra l'arte e la vita ordinaria attraverso la storia di un giovane scrittore diviso tra le sue radici borghesi e le sue aspirazioni artistiche."
+					'A semi-autobiographical novella exploring the conflict between art and ordinary life through the story of a young writer torn between his bourgeois roots and artistic aspirations.'
 			},
 			{
 				id: '2022-2',
@@ -184,7 +237,7 @@
 				author: 'Fëdor Dostoevskij',
 				coverUrl: 'https://www.lafeltrinelli.it/images/9788807901874_0_0_536_0_75.jpg',
 				description:
-					"Un breve romanzo sentimentale ambientato a San Pietroburgo durante le 'notti bianche' estive, che racconta l'incontro tra un sognatore solitario e una giovane donna in attesa del ritorno del suo amato."
+					"A short sentimental novel set in St. Petersburg during the summer 'white nights', telling the story of a lonely dreamer and a young woman waiting for her beloved's return."
 			},
 			{
 				id: '2022-3',
@@ -192,7 +245,7 @@
 				author: 'Wu Ming 1',
 				coverUrl: 'https://www.einaudi.it/content/uploads/2019/04/978880624080HIG.JPG',
 				description:
-					"Un romanzo storico ambientato durante il fascismo, che racconta la storia di un antifascista confinato sull'isola di Ventotene e le sue esperienze di resistenza politica e umana."
+					'A historical novel set during fascism, telling the story of an anti-fascist exiled on the island of Ventotene and his experiences of political and human resistance.'
 			},
 			{
 				id: '2022-4',
@@ -200,7 +253,7 @@
 				author: 'Anna Seghers',
 				coverUrl: 'https://neripozza.it/spool/i__id8454_mw600__1x.jpg',
 				description:
-					"Un romanzo che narra la fuga di sette prigionieri da un campo di concentramento nella Germania nazista, focalizzandosi sulla caccia all'uomo e sulla solidarietà umana in tempi di oppressione."
+					'A novel narrating the escape of seven prisoners from a concentration camp in Nazi Germany, focusing on the manhunt and human solidarity in times of oppression.'
 			},
 			{
 				id: '2022-5',
@@ -208,7 +261,7 @@
 				author: 'Cal Newport',
 				coverUrl: 'https://m.media-amazon.com/images/I/61xdhZU7FlL.jpg',
 				description:
-					'Un saggio che propone una filosofia per ridurre la dipendenza dalla tecnologia digitale e ritrovare un uso più intenzionale e significativo degli strumenti tecnologici nella vita quotidiana.'
+					'An essay proposing a philosophy to reduce dependence on digital technology and regain a more intentional and meaningful use of tech tools in daily life.'
 			}
 		],
 		'2023': [
@@ -218,7 +271,7 @@
 				author: 'Austin Kleon',
 				coverUrl: 'https://m.media-amazon.com/images/I/71MTgEEjNVL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					"Una guida pratica che incoraggia a condividere il proprio processo creativo e il proprio lavoro in corso, offrendo strategie per farsi notare nell'era digitale senza auto-promozione aggressiva."
+					'A practical guide encouraging you to share your creative process and work in progress, offering strategies to get noticed in the digital age without aggressive self-promotion.'
 			},
 			{
 				id: '2023-2',
@@ -226,7 +279,7 @@
 				author: 'Morgan Housel',
 				coverUrl: 'https://m.media-amazon.com/images/I/81wZXiu4OiL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'Una raccolta di saggi che esplorano come le persone pensano al denaro e come il nostro background personale, ego, orgoglio e strani modi di pensare influenzano le decisioni finanziarie.'
+					'A collection of essays exploring how people think about money and how our personal background, ego, pride, and odd ways of thinking influence financial decisions.'
 			},
 			{
 				id: '2023-3',
@@ -234,7 +287,7 @@
 				author: 'René Daumal',
 				coverUrl: 'https://www.adelphi.it/spool/i__id9030_mw600__1x.jpg',
 				description:
-					'Un romanzo allegorico incompiuto che narra di una spedizione alla ricerca di una montagna invisibile che unisce cielo e terra, simbolo della ricerca spirituale e della trascendenza.'
+					'An unfinished allegorical novel about an expedition searching for an invisible mountain that connects heaven and earth, symbolizing spiritual quest and transcendence.'
 			},
 			{
 				id: '2023-4',
@@ -242,7 +295,7 @@
 				author: 'Paul Millerd',
 				coverUrl: 'https://m.media-amazon.com/images/I/61aZhXSli3L._UF1000,1000_QL80_.jpg',
 				description:
-					'Un libro che esplora alternative alle tradizionali carriere lavorative, incoraggiando a costruire percorsi personali più allineati con i propri valori invece di seguire sentieri già tracciati.'
+					'A book exploring alternatives to traditional career paths, encouraging you to build personal paths more aligned with your values instead of following already traced routes.'
 			},
 			{
 				id: '2023-5',
@@ -250,7 +303,7 @@
 				author: 'James Clear',
 				coverUrl: 'https://m.media-amazon.com/images/I/91bYsX41DVL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'Una guida pratica per costruire buone abitudini ed eliminare quelle negative, basata su scoperte scientifiche e casi di studio di atleti olimpionici, artisti e leader di successo.'
+					'A practical guide to building good habits and eliminating bad ones, based on scientific discoveries and case studies of Olympic athletes, artists, and successful leaders.'
 			},
 			{
 				id: '2023-6',
@@ -258,7 +311,7 @@
 				author: 'Eric Jorgenson',
 				coverUrl: 'https://m.media-amazon.com/images/I/61+NT5yiNlL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					"Una raccolta di saggezza e consigli dell'imprenditore e investitore Naval Ravikant su temi come creare ricchezza, trovare felicità, sviluppare giudizio e prendere decisioni migliori."
+					'A collection of wisdom and advice from entrepreneur and investor Naval Ravikant on topics like creating wealth, finding happiness, developing judgment, and making better decisions.'
 			}
 		],
 		'2024': [
@@ -268,7 +321,7 @@
 				author: 'Kazuo Ishiguro',
 				coverUrl: 'https://m.media-amazon.com/images/I/716qHj8vH7L._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'Un romanzo distopico che segue la vita di tre amici cresciuti in un collegio inglese, scoprendo gradualmente il loro destino particolare in un mondo alternativo che solleva questioni etiche profonde.'
+					'A dystopian novel following the lives of three friends raised in an English boarding school, gradually discovering their unique fate in an alternate world that raises deep ethical questions.'
 			},
 			{
 				id: '2024-2',
@@ -276,7 +329,7 @@
 				author: 'Luigi Pirandello',
 				coverUrl: 'https://www.oscarmondadori.it/content/uploads/2016/05/978880466800HIG.webp',
 				description:
-					"Un romanzo che esplora la crisi d'identità del protagonista quando scopre che l'immagine che ha di sé è diversa da come lo vedono gli altri, riflettendo sui temi dell'identità e della percezione."
+					"A novel exploring the protagonist's identity crisis when he discovers that his self-image is different from how others see him, reflecting on themes of identity and perception."
 			},
 			{
 				id: '2024-3',
@@ -284,7 +337,7 @@
 				author: 'Kelly Wilde Miller',
 				coverUrl: 'https://m.media-amazon.com/images/I/81uPyEozMPL._UF1000,1000_QL80_.jpg',
 				description:
-					"Un'esplorazione di come la creatività possa emergere dal caos emotivo e dall'instabilità, offrendo prospettive su come trasformare esperienze di disfunzione in opportunità creative."
+					'An exploration of how creativity can emerge from emotional chaos and instability, offering perspectives on transforming dysfunctional experiences into creative opportunities.'
 			},
 			{
 				id: '2024-4',
@@ -293,7 +346,7 @@
 				coverUrl:
 					'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1616514130l/55145261.jpg',
 				description:
-					"Una raccolta di saggi personali che recensiscono su una scala da 1 a 5 stelle diversi aspetti dell'esperienza umana contemporanea, dall'esistenziale al banale, nell'era dell'Antropocene."
+					'A collection of personal essays reviewing various aspects of contemporary human experience, from the existential to the mundane, in the era of the Anthropocene, on a 1 to 5 star scale.'
 			},
 			{
 				id: '2024-5',
@@ -301,7 +354,7 @@
 				author: 'bell hooks',
 				coverUrl: 'https://m.media-amazon.com/images/I/71lhiY1JWCL.jpg',
 				description:
-					"Un'analisi di come il patriarcato danneggi gli uomini, limitando la loro capacità emotiva e creando modelli di mascolinità tossica, offrendo una visione per un amore e relazioni più sane."
+					'An analysis of how patriarchy harms men, limiting their emotional capacity and creating toxic masculinity models, offering a vision for healthier love and relationships.'
 			},
 			{
 				id: '2024-6',
@@ -309,7 +362,7 @@
 				author: 'Gabrielle Zevin',
 				coverUrl: 'https://m.media-amazon.com/images/I/91HY8gaU8pL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					"Un romanzo che segue l'amicizia e la collaborazione professionale di due sviluppatori di videogiochi nell'arco di trent'anni, esplorando temi di creatività, identità e connessione umana."
+					'A novel following the friendship and professional collaboration of two video game developers over thirty years, exploring themes of creativity, identity, and human connection.'
 			},
 			{
 				id: '2024-7',
@@ -317,7 +370,7 @@
 				author: 'Morgan Housel',
 				coverUrl: 'https://m.media-amazon.com/images/I/71znMAUESWL.jpg',
 				description:
-					'Una raccolta di riflessioni su come, nonostante i cambiamenti tecnologici e sociali, certi aspetti della natura umana e della psicologia rimangono costanti, influenzando le nostre decisioni.'
+					'A collection of reflections on how, despite technological and social changes, certain aspects of human nature and psychology remain constant, influencing our decisions.'
 			},
 			{
 				id: '2024-8',
@@ -325,7 +378,7 @@
 				author: 'Lulu Miller',
 				coverUrl: 'https://www.ibs.it/images/9788867832804_0_0_0_0_0.jpg',
 				description:
-					"Un'opera che intreccia biografia, scienza e memoir personale, raccontando la storia di un ittiologo del XIX secolo e riflettendo sul concetto di ordine e caos nella vita e nella scienza."
+					'A work intertwining biography, science, and personal memoir, telling the story of a 19th-century ichthyologist and reflecting on the concept of order and chaos in life and science.'
 			},
 			{
 				id: '2024-9',
@@ -333,7 +386,7 @@
 				author: 'Mary Shelley',
 				coverUrl: 'https://m.media-amazon.com/images/I/71UR8nhbYML._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'Un classico gothic novel che esplora temi di creazione, responsabilità scientifica e alienazione attraverso la storia di uno scienziato che dà vita a una creatura per poi abbandonarla.'
+					'A classic gothic novel exploring themes of creation, scientific responsibility, and alienation through the story of a scientist who brings a creature to life and then abandons it.'
 			},
 			{
 				id: '2024-10',
@@ -341,7 +394,7 @@
 				author: 'Susanna Clarke',
 				coverUrl: 'https://fazieditore.it/wp-content/uploads/2021/01/piranesi.jpg',
 				description:
-					"Un romanzo che racconta la storia di un uomo che vive in un labirinto infinito di sale piene di statue, esplorando temi di identità, memoria e realtà attraverso un'atmosfera onirica e misteriosa."
+					'A novel telling the story of a man living in an endless labyrinth of halls filled with statues, exploring themes of identity, memory, and reality through a dreamlike and mysterious atmosphere.'
 			},
 			{
 				id: '2024-11',
@@ -350,7 +403,7 @@
 				coverUrl:
 					'https://universi.inaf.it/wp-content/uploads/2024/06/cover_libro_troisi-scaled.jpg',
 				description:
-					'Una raccolta di brevi riflessioni scientifiche che offrono una prospettiva cosmica sui problemi umani, presentando concetti astrofisici complessi in modo accessibile e rassicurante.'
+					'A collection of short scientific reflections offering a cosmic perspective on human problems, presenting complex astrophysical concepts in an accessible and reassuring way.'
 			},
 			{
 				id: '2024-12',
@@ -358,7 +411,7 @@
 				author: 'Carlo Rovelli',
 				coverUrl: 'https://www.adelphi.it/spool/og__id13027_w800_t1676628805__1x.jpg',
 				description:
-					"Un saggio che esplora la teoria dei buchi bianchi come possibile risposta al mistero dei buchi neri, combinando fisica teorica e cosmologia con riflessioni filosofiche sul tempo e l'universo."
+					'An essay exploring the theory of white holes as a possible answer to the mystery of black holes, combining theoretical physics and cosmology with philosophical reflections on time and the universe.'
 			},
 			{
 				id: '2024-13',
@@ -366,7 +419,7 @@
 				author: 'Kazuo Ishiguro',
 				coverUrl: 'https://www.ibs.it/images/9788806253561_0_0_536_0_75.jpg',
 				description:
-					"Un romanzo narrato dal punto di vista di un'Amica Artificiale che osserva il mondo umano, esplorando temi di amore, lealtà e cosa significhi essere umani in un futuro tecnologicamente avanzato."
+					'A novel narrated from the point of view of an Artificial Friend observing the human world, exploring themes of love, loyalty, and what it means to be human in a technologically advanced future.'
 			},
 			{
 				id: '2024-14',
@@ -374,7 +427,7 @@
 				author: 'Herbert Lui',
 				coverUrl: 'https://m.media-amazon.com/images/I/61GI17NRsRL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'Una guida pratica che offre esercizi e strategie per superare i blocchi creativi e sviluppare una pratica creativa regolare e sostenibile, indipendentemente dal mezzo espressivo scelto.'
+					'A practical guide offering exercises and strategies to overcome creative blocks and develop a regular, sustainable creative practice, regardless of the chosen expressive medium.'
 			},
 			{
 				id: '2024-15',
@@ -382,7 +435,7 @@
 				author: 'Friedrich Dürrenmatt',
 				coverUrl: 'https://www.adelphi.it/spool/i__id2421_mw1000__1x.jpg',
 				description:
-					"Una reinterpretazione ironica e sovversiva dei miti greci e dell'oracolo di Delfi, che esplora il tema del destino e della libertà umana attraverso una narrazione che mescola mito e modernità."
+					'An ironic and subversive reinterpretation of Greek myths and the Oracle of Delphi, exploring the theme of fate and human freedom through a narrative that mixes myth and modernity.'
 			}
 		],
 		'2025': [
@@ -392,7 +445,7 @@
 				author: 'Olga Tokarczuk',
 				coverUrl: 'https://dbtitoli.giunti.it/api/media/image/getImage?cm=B0646A&type=P',
 				description:
-					"Un romanzo della premio Nobel che intreccia molteplici storie attraverso diversi periodi storici, esplorando il rapporto tra l'uomo e la natura e la ricerca di significato nell'esistenza."
+					'A novel by the Nobel laureate weaving together multiple stories across different historical periods, exploring the relationship between humans and nature and the search for meaning in existence.'
 			},
 			{
 				id: '2025-2',
@@ -400,7 +453,7 @@
 				author: 'Mitch Albom',
 				coverUrl: 'https://m.media-amazon.com/images/I/91JGbl7K1OL.jpg',
 				description:
-					"Un memoir toccante che racconta gli incontri settimanali dell'autore con il suo vecchio professore malato terminale, condividendo lezioni profonde sulla vita, l'amore, il perdono e la morte."
+					"A touching memoir recounting the author's weekly meetings with his old, terminally ill professor, sharing profound lessons on life, love, forgiveness, and death."
 			},
 			{
 				id: '2025-3',
@@ -408,7 +461,7 @@
 				author: 'Cal Newport',
 				coverUrl: 'https://m.media-amazon.com/images/I/71KLTWMGdrL.jpg',
 				description:
-					"Un saggio che sfida il concetto di 'seguire la propria passione', proponendo invece di sviluppare competenze rare e preziose come strategia per costruire una carriera soddisfacente e significativa."
+					"An essay challenging the concept of 'following your passion', instead proposing to develop rare and valuable skills as a strategy to build a satisfying and meaningful career."
 			}
 		]
 	};
@@ -417,9 +470,9 @@
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<section class="flex flex-col gap-8">
 		<div class="animate-on-scroll flex flex-col gap-2 text-center">
-			<h6 class="text-lg sm:text-xl md:text-2xl">Libreria Personale</h6>
+			<h6 class="text-lg sm:text-xl md:text-2xl">Personal Library</h6>
 			<h3 class="text-3xl sm:text-4xl md:text-5xl">
-				I miei <span class="text-blue-400">migliori libri</span> per anno
+				My <span class="text-blue-400">best books</span> by year
 			</h3>
 		</div>
 
@@ -432,7 +485,7 @@
 				}`}
 				on:click={() => changeGridView(3)}
 			>
-				3 per riga
+				3 per row
 			</button>
 			<button
 				class={`rounded-md px-3 py-1 transition-colors ${
@@ -442,7 +495,7 @@
 				}`}
 				on:click={() => changeGridView(4)}
 			>
-				4 per riga
+				4 per row
 			</button>
 			<button
 				class={`hidden rounded-md px-3 py-1 transition-colors xl:block ${
@@ -452,7 +505,7 @@
 				}`}
 				on:click={() => changeGridView(5)}
 			>
-				5 per riga
+				5 per row
 			</button>
 		</div>
 
@@ -465,17 +518,17 @@
 						</h4>
 
 						<div
-							class={`grid grid-cols-1 gap-6 sm:grid-cols-2 ${
+							class={`animate-on-scroll grid grid-cols-1 gap-6 sm:grid-cols-2 ${
 								gridColumns === 3
 									? 'md:grid-cols-3'
 									: gridColumns === 4
-									  ? 'md:grid-cols-3 lg:grid-cols-4'
-									  : 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+										? 'md:grid-cols-3 lg:grid-cols-4'
+										: 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
 							}`}
 						>
 							{#each booksByYear[year] as book}
 								<div
-									class="animate-on-scroll group flex flex-col overflow-hidden rounded-lg bg-slate-200/50 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70"
+									class="group flex flex-col overflow-hidden rounded-lg bg-slate-200/50 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/50 dark:shadow-none dark:hover:bg-slate-900/70"
 								>
 									<div
 										class="aspect-[2/3] w-full overflow-hidden bg-slate-300/50 dark:bg-slate-800/50"
@@ -493,8 +546,11 @@
 										<p class="text-sm text-slate-600 dark:text-slate-400">{book.author}</p>
 										<p
 											class={`mt-2 text-sm text-slate-700 dark:text-slate-300 ${
-												gridColumns >= 4 ? 'line-clamp-3' : ''
+												gridColumns >= 4 && !isMobile ? 'line-clamp-3' : ''
 											}`}
+											on:mouseenter={(e) => showTooltip(e, book.description)}
+											on:mouseleave={hideTooltip}
+											on:mousemove={updateTooltipPosition}
 										>
 											{book.description}
 										</p>
@@ -509,8 +565,18 @@
 	</section>
 </main>
 
+<!-- Tooltip -->
+{#if tooltipVisible && !isMobile}
+	<div
+		class="pointer-events-none fixed z-50 max-w-xs rounded-lg bg-slate-800 p-3 text-sm text-white shadow-lg dark:bg-slate-200 dark:text-slate-800"
+		style="left: {tooltipX}px; top: {tooltipY}px;"
+	>
+		{tooltipContent}
+	</div>
+{/if}
+
 <style>
-	/* Animazione per il caricamento delle immagini */
+	/* Animation for image loading */
 	img {
 		opacity: 0;
 		animation: fadeIn 0.5s ease-in forwards;
@@ -525,13 +591,30 @@
 		}
 	}
 
-	/* Stile per gli elementi animati */
+	/* Style for animated elements */
 	:global(.animate-on-scroll) {
 		opacity: 0;
 		transform: translateY(30px);
 	}
 
-	/* Disattiva transizioni per utenti che preferiscono ridurre le animazioni */
+	/* Line clamp utilities */
+	.line-clamp-1 {
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* Disable transitions for users who prefer reduced motion */
 	@media (prefers-reduced-motion: reduce) {
 		:global(.animate-on-scroll) {
 			opacity: 1;
@@ -543,7 +626,7 @@
 			animation: none;
 		}
 
-		/* Disattiva tutte le transizioni */
+		/* Disable all transitions */
 		* {
 			transition: none !important;
 			animation: none !important;

@@ -40,6 +40,9 @@
 				// Raccogliamo tutti gli elementi da animare
 				elementsToAnimate = [...document.querySelectorAll('.animate-on-scroll')];
 
+				// Se non ci sono elementi, esci
+				if (elementsToAnimate.length === 0) return;
+
 				// Se l'utente preferisce ridurre le animazioni, mostriamo subito gli elementi
 				if (prefersReducedMotion) {
 					// Mostra subito tutti gli elementi senza animazione
@@ -49,6 +52,9 @@
 				} else {
 					// Configuriamo le animazioni normali
 					elementsToAnimate.forEach((element) => {
+						// Reset dell'elemento prima di animarlo
+						gsap.set(element, { opacity: 0 });
+
 						gsap.fromTo(
 							element,
 							{
@@ -72,13 +78,27 @@
 			// Inizializza subito e ogni volta che la pagina cambia
 			initAnimations();
 
-			// Aggiungi un listener per il cambio di pagina in SvelteKit
-			document.addEventListener('sveltekit:navigation-end', () => {
+			// Aggiungi listener per la navigazione SvelteKit
+			document.addEventListener('sveltekit:navigation-start', () => {
 				// Rimuovi i trigger precedenti per evitare conflitti
 				ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+			});
 
+			document.addEventListener('sveltekit:navigation-end', () => {
 				// Dà un po' di tempo al DOM per aggiornare completamente
-				setTimeout(initAnimations, 100);
+				setTimeout(() => {
+					initAnimations();
+					// Fallback: forza la visibilità se le animazioni non partono
+					setTimeout(() => {
+						const elementsStillHidden = document.querySelectorAll('.animate-on-scroll');
+						elementsStillHidden.forEach((element) => {
+							const computedStyle = window.getComputedStyle(element);
+							if (computedStyle.opacity === '0') {
+								gsap.set(element, { opacity: 1 });
+							}
+						});
+					}, 500);
+				}, 100);
 			});
 		});
 	});

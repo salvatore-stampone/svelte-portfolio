@@ -31,6 +31,11 @@
 			isExternal: false
 		},
 		{
+			name: 'Contact.',
+			link: '/contact',
+			isExternal: false
+		},
+		{
 			name: 'YouTube.',
 			link: 'https://www.youtube.com/@slavarote',
 			isExternal: true
@@ -82,6 +87,11 @@
 					}
 				}, 100);
 			}
+		} else if (!link.isExternal) {
+			// Per i link interni (non anchor), resetta lo scroll
+			closeMenu();
+			await goto(link.link);
+			window.scrollTo({ top: 0, behavior: 'instant' });
 		}
 	}
 </script>
@@ -98,6 +108,11 @@
 		<a
 			href="/"
 			class="text-xl text-slate-950 transition-colors hover:text-blue-400 dark:text-slate-200 hover:dark:text-blue-400"
+			on:click={async (e) => {
+				e.preventDefault();
+				await goto('/');
+				window.scrollTo({ top: 0, behavior: 'instant' });
+			}}
 		>
 			<h1>Salvatore Stampone</h1>
 		</a>
@@ -163,14 +178,18 @@
 				{/if}
 			</button>
 			<a
-				href="mailto:salvatorestampone@icloud.com"
-				target="_blank"
+				href="/contact"
 				class="group relative hidden overflow-hidden rounded-full bg-slate-950 px-5 py-2 text-slate-200 dark:bg-slate-200 dark:text-slate-950 sm:block"
+				on:click={async (e) => {
+					e.preventDefault();
+					await goto('/contact');
+					window.scrollTo({ top: 0, behavior: 'instant' });
+				}}
 			>
 				<div
 					class="absolute right-full top-0 z-0 h-full w-full bg-blue-400 opacity-20 duration-200 group-hover:translate-x-full"
 				/>
-				<h4 class="relative z-[9]">Get in touch</h4>
+				<h4 class="relative z-[9]">Get a quote &rarr;</h4>
 			</a>
 		</div>
 	</div>
@@ -237,14 +256,19 @@
 			{/if}
 		</button>
 		<a
-			href="mailto:salvatorestampone@icloud.com"
-			target="_blank"
+			href="/contact"
 			class="group relative mt-4 overflow-hidden rounded-full bg-slate-950 px-5 py-2 text-xl text-slate-200 dark:bg-slate-200 dark:text-slate-950"
+			on:click={async (e) => {
+				e.preventDefault();
+				closeMenu();
+				await goto('/contact');
+				window.scrollTo({ top: 0, behavior: 'instant' });
+			}}
 		>
 			<div
 				class="absolute right-full top-0 z-0 h-full w-full bg-blue-400 opacity-20 duration-200 group-hover:translate-x-full"
 			/>
-			<h4 class="relative z-[9]">Get in touch</h4>
+			<h4 class="relative z-[9]">Get a quote &rarr;</h4>
 		</a>
 	</div>
 </header>

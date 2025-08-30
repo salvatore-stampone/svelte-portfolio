@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 
 	// Stato per indicare se disponibile o meno per lavoro
-	let isAvailable = false;
+	let isAvailable = true;
 
 	// Riferimenti agli elementi da animare
 	let introSection;
@@ -159,19 +159,32 @@
 				and PostgreSQL!
 			</p>
 			<p class="animate-on-scroll sm:text-lg md:text-xl">
+				With these skills in mind (and a few more), I founded <a
+					href="https://www.instagram.com/artemisdigitalsolutions/"
+					target="_blank"
+					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
+					>Artemis Digital Solutions</a
+				>, a small creative digital agency where I help clients build their digital presence
+				together, be it
+				<span class="text-blue-400">websites</span>,
+				<span class="text-blue-400">graphic design</span>,
+				<span class="text-blue-400">video editing</span>
+				or <span class="text-blue-400">consulting</span>.
+			</p>
+			<p class="animate-on-scroll sm:text-lg md:text-xl">
 				I also have a <a
 					href="https://www.youtube.com/@slavarote"
 					target="_blank"
 					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
 					>YouTube channel</a
 				>
-				(in Italian 🇮🇹) and a
+				and a
 				<a
 					href="https://buildthestairs.substack.com/"
 					target="_blank"
 					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
 					>blog</a
-				> (in English 🇬🇧) where I share my learnings and interests in a fun and engaging way.
+				> (both in Italian 🇮🇹) where I share my learnings and interests in a fun and engaging way.
 			</p>
 			<a
 				href="mailto:salvatorestampone@icloud.com"
@@ -180,7 +193,7 @@
 				<div
 					class="absolute right-full top-0 z-0 h-full w-full bg-blue-400 opacity-20 duration-200 group-hover:translate-x-full"
 				/>
-				<h4 class="relative z-[9]">Get in touch &rarr;</h4>
+				<h4 class="relative z-[9]">Get a quote &rarr;</h4>
 			</a>
 		</div>
 		<div class="animate-on-scroll relative grid place-items-center">
