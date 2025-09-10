@@ -465,6 +465,11 @@
 	];
 </script>
 
+<svelte:head>
+	<title>CV | Salvatore Stampone</title>
+	<meta name="description" content="My professional journey and language skills." />
+</svelte:head>
+
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<!-- GitHub Activity -->
 	<section class="flex flex-col gap-8">

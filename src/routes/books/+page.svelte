@@ -467,6 +467,11 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Books | Salvatore Stampone</title>
+	<meta name="description" content="My personal library of the best books I've read by year." />
+</svelte:head>
+
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<section class="flex flex-col gap-8">
 		<div class="animate-on-scroll flex flex-col gap-2 text-center">
