@@ -147,7 +147,7 @@
 					{/if}
 				</div>
 				<h2 class="animate-on-scroll text-4xl sm:text-5xl lg:min-w-[700px] lg:text-6xl">
-					Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />Full Stack
+					Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />
 					<span class="text-blue-400">Software Engineer</span>,<br />
 					<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
 				</h2>
