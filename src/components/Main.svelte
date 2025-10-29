@@ -88,7 +88,7 @@
 
 	const qualities = [
 		{
-			name: 'a self taught developer',
+			name: 'a self taught software engineer',
 			desc: `I have been teaching myself how to code <strong class="text-blue-400">everyday</strong> using the internet and my thirst for knowledge. The <strong class="text-blue-400">creative thinking</strong> and doing it requires, within the boundaries it sets, is what I love most. From <strong class="text-blue-400">JS, HTML and CSS</strong>, my expertise has evolved to include <strong class="text-blue-400">JS frameworks, UI design, the backend, and DB's</strong>. I also love using <strong class="text-blue-400">AI</strong> to help me with my work. I find it accelerates my output, learning and creativity.`
 		},
 		{
@@ -148,7 +148,7 @@
 				</div>
 				<h2 class="animate-on-scroll text-4xl sm:text-5xl lg:min-w-[700px] lg:text-6xl">
 					Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />Full Stack
-					<span class="text-blue-400">Developer</span>,<br />
+					<span class="text-blue-400">Software Engineer</span>,<br />
 					<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
 				</h2>
 			</div>

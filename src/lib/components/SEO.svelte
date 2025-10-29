@@ -1,12 +1,12 @@
 <script lang="ts">
-	export let title = 'Salvatore Stampone | Developer, YouTuber & Writer';
+	export let title = 'Salvatore Stampone | Software Engineer, YouTuber & Writer';
 	export let description =
-		"I'm Salvatore Stampone, a Full Stack Developer, YouTuber and Writer based in Italy, with an undeniable love for the front-end.";
+		"I'm Salvatore Stampone, a Software Engineer, YouTuber and Writer based in Italy, with an undeniable love for the front-end.";
 	export let type = 'website';
 	export let image = '/api/og';
 	export let url = 'https://salvatorestampone.com';
 	export let keywords =
-		'developer, full stack, frontend, backend, youtube, writer, next.js, vue.js, sveltekit, javascript, typescript';
+		'software engineer, full stack, frontend, backend, youtube, writer, next.js, vue.js, sveltekit, javascript, typescript';
 </script>
 
 <svelte:head>
