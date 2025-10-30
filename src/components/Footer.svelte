@@ -1,4 +1,6 @@
-<footer class="flex flex-col items-center gap-8 bg-slate-100/50 px-4 py-16 dark:bg-slate-900/50">
+<footer
+	class="relative z-10 flex flex-col items-center gap-8 bg-slate-100/50 px-4 py-16 dark:bg-slate-900/50"
+>
 	<div class="flex items-center gap-6">
 		<a
 			href="https://github.com/S-Memento"

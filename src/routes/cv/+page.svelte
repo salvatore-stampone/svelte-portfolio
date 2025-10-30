@@ -6,9 +6,37 @@
 	import { theme } from '$lib/stores/theme';
 	import { gsap } from 'gsap';
 
+	const tailwindLogo = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
+					</svg>`;
+
 	const experiences = [
 		{
-			period: '2024 — Today',
+			period: '2025 — Present',
+			company: 'RedBing',
+			logo: '/images/logos/redbing.jpg',
+			technologies: [
+				{ name: 'React', icon: 'fa-brands fa-react' },
+				{ name: 'Next.js', icon: 'fa-solid fa-n' },
+				{
+					name: 'TailwindCSS',
+					icon: tailwindLogo
+				},
+				{ name: 'Shadcn', icon: 'fa-solid fa-palette' },
+				{ name: 'React Native', icon: 'fa-brands fa-react' },
+				// { name: 'Node.js', icon: 'fa-brands fa-node-js' },
+				// { name: 'Express.js', icon: 'fa-solid fa-server' },
+				// { name: 'PostgreSQL', icon: 'fa-solid fa-database' },
+				{ name: 'Firebase', icon: 'fa-solid fa-fire' },
+				{ name: 'Supabase', icon: 'fa-solid fa-bolt' },
+				// { name: 'GCP', icon: 'fa-brands fa-google' },
+				{ name: 'AWS', icon: 'fa-brands fa-aws' }
+			],
+			description: `I am currently working on the development of many applications for our clients and learning every day.`,
+			link: 'https://www.redbing.ai/'
+		},
+		{
+			period: '2024 — 2025',
 			company: 'Otello AI',
 			logo: '/images/logos/otello.jpeg',
 			technologies: [
@@ -22,17 +50,14 @@
 				{ name: 'Python', icon: 'fa-brands fa-python' },
 				{
 					name: 'TailwindCSS',
-					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
-					</svg>`
+					icon: tailwindLogo
 				}
 			],
-			description:
-				'Otello is a software platform that unifies all hotel messaging channels and features an AI assistant designed to enhance the guest experience.<br><br>By automating routine tasks and handling inquiries, the AI frees up staff from repetitive, low-value work. It also helps increase customer conversions with faster response times while ensuring consistent and high-quality communication.',
+			description: `I collaborated on the development of the application's <span class="text-blue-400">front-end and back-end</span>, also implementing our AI. I also created, almost single-handedly, the <span class="text-blue-400">AI chatbot</span> to be provided to our customers via script.`,
 			link: 'https://www.otello.ai/'
 		},
 		{
-			period: '2022 - Today',
+			period: '2022 - 2025',
 			company: 'Brots Lab',
 			logo: '/images/logos/brots.jpeg',
 			technologies: [
@@ -42,15 +67,14 @@
 				{ name: 'PostgreSQL', icon: 'fa-solid fa-database' },
 				{ name: 'GCP', icon: 'fa-brands fa-google' },
 				{ name: 'React', icon: 'fa-brands fa-react' },
+				{ name: 'React Native', icon: 'fa-brands fa-react' },
 				{
 					name: 'TailwindCSS',
-					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
-					</svg>`
+					icon: tailwindLogo
 				}
 			],
 			description:
-				'Brots develops innovative software for the music industry, focusing on practical solutions that enhance <span class="text-blue-400">creativity</span> and streamline industry processes.<br><br>Explore the future of music tech with us.',
+				'I developed innovative <span class="text-blue-400">software for the music and hotel industries</span>, focusing on practical solutions that enhance creativity and efficiency while simplifying industrial processes.',
 			link: 'https://www.brotslab.com/'
 		},
 		{
@@ -66,9 +90,7 @@
 				{ name: 'Shadcn', icon: 'fa-solid fa-palette' },
 				{
 					name: 'TailwindCSS',
-					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
-					</svg>`
+					icon: tailwindLogo
 				}
 			],
 			description:
@@ -99,13 +121,11 @@
 				{ name: 'React', icon: 'fa-brands fa-react' },
 				{
 					name: 'TailwindCSS',
-					icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-						<path fill="none" stroke="currentColor" stroke-width="1.2" d="M22.105,7.553c-0.224,0.448 -0.523,0.723 -0.914,0.838c-0.614,0.183 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.765,-1.358 -3.961,-3.046 -6.979,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.546,-0.425 4.031,-0.015 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658zM16.192,15.391c-0.613,0.18 -1.343,-0.052 -1.685,-0.253c-0.451,-0.265 -0.974,-0.667 -1.527,-1.092c-1.766,-1.358 -3.962,-3.046 -6.98,-3.046c-2.414,0 -3.654,1.239 -5.707,3.293l1.407,1.421c0.545,-0.427 4.032,-0.014 5.552,1.194c2.259,1.795 3.89,3.092 5.748,3.092c2.659,0 4.879,-1.741 5.94,-4.658l-1.834,-0.789c-0.225,0.448 -0.523,0.722 -0.914,0.838z"/>
-					</svg>`
+					icon: tailwindLogo
 				}
 			],
 			description:
-				'Keeo is a new streaming platform that adopts a <span class="text-blue-400">pay-per-stream</span> model for users to listen to music.<br><br>Unlike traditional subscription models that require monthly fees, Keeo allows users to add funds to their accounts and charges them a fixed price for each stream that lasts over 30 seconds, offering a premium experience.',
+				'I created the product <span class="text-blue-400">landing page</span> based on designs created in <span class="text-blue-400">Figma</span>, and collaborated on the creation of the <span class="text-blue-400">mobile application</span> that would function as a music streaming service connected to the <span class="text-blue-400">blockchain</span>.',
 			link: 'https://www.keeo.io/'
 		}
 	];
@@ -472,7 +492,7 @@
 
 <main class="flex flex-1 flex-col gap-24 p-4 py-20">
 	<!-- GitHub Activity -->
-	<section class="flex flex-col gap-8">
+	<!-- <section class="flex flex-col gap-8">
 		<div class="animate-on-scroll flex flex-col gap-2 text-center">
 			<h6 class="text-lg sm:text-xl md:text-2xl">My GitHub Activity</h6>
 			{#if loading}
@@ -488,7 +508,7 @@
 		>
 			<div bind:this={heatmapContainer} />
 		</div>
-	</section>
+	</section> -->
 
 	<!-- Work Experience -->
 	<section class="flex flex-col gap-8">
