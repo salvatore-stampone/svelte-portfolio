@@ -67,10 +67,10 @@
 
 	const steps = [
 		{
-			name: 'Keeo',
-			icon: 'fa-solid fa-music',
-			desc: '<p>Explore Keeo, a website built with <strong class="text-blue-400">Next.js, TypeScript, and TailwindCSS.</strong> Sign up to try our revolutionary mobile app.</p>',
-			href: 'https://www.keeo.io/'
+			name: 'Bau',
+			icon: 'fa-solid fa-dog',
+			desc: '<p>Explore Bau, a website to help you build a better relationship with your dog, built with <strong class="text-blue-400">Next.js, TypeScript, and TailwindCSS.</strong> Sign up to try it.</p>',
+			href: 'https://www.getbau.app/'
 		},
 		{
 			name: 'Otello',
@@ -135,41 +135,42 @@
 							></span>
 							<span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
 						</span>
-						<span class="text-sm font-medium text-green-500 sm:text-base">Available for hire</span>
+						<span class="text-sm font-medium text-green-500 sm:text-base"
+							>Available for freelance projects</span
+						>
 					{:else}
 						<!-- Stato "Not Available" -->
 						<span class="relative flex h-3 w-3">
 							<span class="relative inline-flex h-3 w-3 rounded-full bg-gray-400"></span>
 						</span>
 						<span class="text-sm font-medium text-gray-400 sm:text-base"
-							>Not available for hire</span
+							>Not available for freelance projects</span
 						>
 					{/if}
 				</div>
 				<h2 class="animate-on-scroll text-4xl sm:text-5xl lg:min-w-[700px] lg:text-6xl">
 					Hi! I'm <span class="text-blue-400">Salvatore</span> Stampone<br />
-					<span class="text-blue-400">Software Engineer</span>,<br />
+					<span class="text-blue-400">Software Engineer</span>,
+					<span class="text-blue-400">Designer</span>,
 					<span class="text-blue-400">YouTuber</span> & <span class="text-blue-400">Writer</span>
 				</h2>
 			</div>
 			<p class="animate-on-scroll sm:text-lg md:text-xl">
-				The frontend is where my main interests are but I'm versitile: my <span
-					class="text-blue-400">most proficient tech</span
-				> includes JavaScript (Next.js, Vue.js, SvelteKit), TailwindCSS, Express.js, Ruby on Rails, Python,
-				and PostgreSQL!
+				I'm a freelancer currently working as a Software Engineer at <span class="text-red-500"
+					>Red</span
+				>Bing, an Italian startup that provides software solutions to businesses.
 			</p>
 			<p class="animate-on-scroll sm:text-lg md:text-xl">
-				With these skills in mind (and a few more), I founded <a
+				With my developer and designer skills in mind, I founded <a
 					href="https://www.instagram.com/artemisdigitalsolutions/"
 					target="_blank"
 					class="text-blue-400 underline transition-colors hover:text-blue-500 hover:no-underline sm:text-lg md:text-xl"
-					>Artemis Digital Solutions</a
+					>Artemis</a
 				>, a small creative digital agency where I help clients build their digital presence
-				together, be it
-				<span class="text-blue-400">websites</span>,
-				<span class="text-blue-400">graphic design</span>,
-				<span class="text-blue-400">video editing</span>
-				or <span class="text-blue-400">consulting</span>.
+				together, be it through
+				<span class="text-blue-400">websites</span>, <span class="text-blue-400">apps</span>,
+				<span class="text-blue-400">design-related projects</span> (like brand identities and
+				flyers), or <span class="text-blue-400">consulting</span>.
 			</p>
 			<p class="animate-on-scroll sm:text-lg md:text-xl">
 				I also have a <a

@@ -21,8 +21,8 @@
 	// Service type options
 	const serviceTypes = [
 		'Web Development',
+		'App Development',
 		'Graphic Design',
-		'Video Editing',
 		'Consulting',
 		'Other'
 	];
@@ -111,7 +111,7 @@
 	<title>Contact Me | Salvatore Stampone</title>
 	<meta
 		name="description"
-		content="Contact me to discuss your project and get a quote. I offer Web Development, Graphic Design, Video Editing and Consulting services."
+		content="Contact me to discuss your project and get a quote. I offer Web Development, App Development, Graphic Design and Consulting services."
 	/>
 </svelte:head>
 

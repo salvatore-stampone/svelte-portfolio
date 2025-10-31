@@ -362,7 +362,7 @@
 				author: 'Gabrielle Zevin',
 				coverUrl: 'https://m.media-amazon.com/images/I/91HY8gaU8pL._AC_UF1000,1000_QL80_.jpg',
 				description:
-					'A novel following the friendship and professional collaboration of two video game software engineers over thirty years, exploring themes of creativity, identity, and human connection.'
+					'A novel following the friendship and professional collaboration of two videogame software engineers over thirty years, exploring themes of creativity, identity, and human connection.'
 			},
 			{
 				id: '2024-7',
